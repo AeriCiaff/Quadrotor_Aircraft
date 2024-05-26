@@ -21,6 +21,9 @@
 #ifndef _INV_MPU_H_
 #define _INV_MPU_H_
 
+#define STM32_MPU6050
+#define MPU6050
+
 #define INV_X_GYRO      (0x40)
 #define INV_Y_GYRO      (0x20)
 #define INV_Z_GYRO      (0x10)
@@ -29,7 +32,7 @@
 #define INV_XYZ_COMPASS (0x01)
 
 struct int_param_s {
-#if defined EMPL_TARGET_MSP430 || defined MOTION_DRIVER_TARGET_MSP430 || defined STM32F407xx
+#if defined EMPL_TARGET_MSP430 || defined MOTION_DRIVER_TARGET_MSP430
     void (*cb)(void);
     unsigned short pin;
     unsigned char lp_exit;
@@ -39,6 +42,7 @@ struct int_param_s {
     void (*cb)(volatile void*);
     void *arg;
 #endif
+    void *arg;
 };
 
 #define MPU_INT_STATUS_DATA_READY       (0x0001)
@@ -122,13 +126,6 @@ int mpu_reg_dump(void);
 int mpu_read_reg(unsigned char reg, unsigned char *data);
 int mpu_run_self_test(long *gyro, long *accel);
 int mpu_register_tap_cb(void (*func)(unsigned char, unsigned char));
-
-uint8_t run_self_test(void);
-unsigned short inv_orientation_matrix_to_scalar(const signed char *mtx);
-unsigned short inv_row_2_scale(const signed char *row);
-void mget_ms(unsigned long *time);
-uint8_t mpu_dmp_init(void);
-uint8_t mpu_dmp_get_data(float *pitch,float *roll,float *yaw);
 
 #endif  /* #ifndef _INV_MPU_H_ */
 

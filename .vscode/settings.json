@@ -10,7 +10,9 @@
     },
     "files.associations": {
         "stm32f4xx_hal.h": "c",
-        "i2c.h": "c"
+        "i2c.h": "c",
+        "main.h": "c",
+        "mpu6050.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

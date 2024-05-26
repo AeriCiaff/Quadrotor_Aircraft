@@ -10,6 +10,7 @@
       <TargetName>Aircraft</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pArmCC>6190000::V6.19::ARMCLANG</pArmCC>
       <pCCUsed>6190000::V6.19::ARMCLANG</pCCUsed>
       <uAC6>1</uAC6>
       <TargetOption>
@@ -340,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\..\..\..\mpu6050_dmp\Inc;..\Core\BLDC</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\Core\MPU6050_DMP;..\Core\BLDC</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -405,6 +406,11 @@
               <FilePath>../Core/Src/gpio.c</FilePath>
             </File>
             <File>
+              <FileName>i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/i2c.c</FilePath>
+            </File>
+            <File>
               <FileName>tim.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/tim.c</FilePath>
@@ -425,29 +431,24 @@
               <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
             </File>
             <File>
-              <FileName>bldc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\BLDC\bldc.c</FilePath>
-            </File>
-            <File>
               <FileName>inv_mpu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\mpu6050_dmp\Src\inv_mpu.c</FilePath>
+              <FilePath>..\Core\MPU6050_DMP\inv_mpu.c</FilePath>
             </File>
             <File>
               <FileName>inv_mpu_dmp_motion_driver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\mpu6050_dmp\Src\inv_mpu_dmp_motion_driver.c</FilePath>
+              <FilePath>..\Core\MPU6050_DMP\inv_mpu_dmp_motion_driver.c</FilePath>
             </File>
             <File>
               <FileName>mpu6050.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\mpu6050_dmp\Src\mpu6050.c</FilePath>
+              <FilePath>..\Core\MPU6050_DMP\mpu6050.c</FilePath>
             </File>
             <File>
-              <FileName>mpu6050_i2c.c</FileName>
+              <FileName>bldc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\mpu6050_dmp\Src\mpu6050_i2c.c</FilePath>
+              <FilePath>..\Core\BLDC\bldc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -455,14 +456,14 @@
           <GroupName>Drivers/STM32F4xx_HAL_Driver</GroupName>
           <Files>
             <File>
-              <FileName>stm32f4xx_hal_tim.c</FileName>
+              <FileName>stm32f4xx_hal_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c</FilePath>
+              <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_hal_tim_ex.c</FileName>
+              <FileName>stm32f4xx_hal_i2c_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</FilePath>
+              <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_rcc.c</FileName>
@@ -528,6 +529,16 @@
               <FileName>stm32f4xx_hal_exti.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_tim.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_tim_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim_ex.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_hal_uart.c</FileName>

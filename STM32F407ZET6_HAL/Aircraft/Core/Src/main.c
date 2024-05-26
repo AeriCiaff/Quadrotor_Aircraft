@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "i2c.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -27,7 +28,6 @@
 #include "bldc.h"
 #include "stdio.h"
 #include "mpu6050.h"
-#include "mpu6050_i2c.h"
 #include "inv_mpu.h"
 #include "inv_mpu_dmp_motion_driver.h"
 
@@ -98,11 +98,11 @@ float temp;
   MX_GPIO_Init();
   MX_UART4_Init();
   MX_TIM14_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 	HAL_TIM_PWM_Start(&htim14,TIM_CHANNEL_1);
 	Motor_Init(&htim14,TIM_CHANNEL_1);
-	MPU_Init();
-  mpu_dmp_init();
+	MPU6050_DMP_init();
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);
   /* USER CODE END 2 */
 
@@ -110,12 +110,9 @@ float temp;
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		mpu_dmp_get_data(&pitch, &roll, &yaw);	//获取x，y，z数据
-    MPU_Get_Accelerometer(&aacx,&aacy, &aacz);		//获取加鿟度数�?
-    MPU_Get_Gyroscope(&gyrox, &gyroy, &gyroz);		//获取陿螺仪数�?
-    temp = MPU_Get_Temperature();						//获取温度数据
-    printf("X:%.1f°  Y:%.1f°  Z:%.1f°  %.1f°C\r\n", roll, pitch, yaw, temp/100);//输出信息
-		HAL_Delay(1000);
+		MPU6050_DMP_Get_Date(&pitch,&roll,&yaw);
+		printf("pitch = %f, roll = %f, yaw = %f\r\n", pitch,roll,yaw);
+		HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

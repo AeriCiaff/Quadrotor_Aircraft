@@ -1,10 +1,10 @@
-aircraft/inv_mpu.o: ..\..\..\..\mpu6050_dmp\Src\inv_mpu.c \
+aircraft/inv_mpu.o: ..\Core\MPU6050_DMP\inv_mpu.c \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
-  ..\..\..\..\mpu6050_dmp\Inc\inv_mpu.h \
+  ..\Core\MPU6050_DMP\inv_mpu.h ..\Core\Inc\i2c.h ..\Core\Inc\main.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
@@ -31,13 +31,10 @@ aircraft/inv_mpu.o: ..\..\..\..\mpu6050_dmp\Src\inv_mpu.c \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
-  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\..\..\..\mpu6050_dmp\Inc\inv_mpu_dmp_motion_driver.h \
-  ..\..\..\..\mpu6050_dmp\Inc\mpu6050.h \
-  ..\..\..\..\mpu6050_dmp\Inc\mpu6050_i2c.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\inttypes.h ..\Core\Inc\gpio.h \
-  ..\Core\Inc\main.h
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h

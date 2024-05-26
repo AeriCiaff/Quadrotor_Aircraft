@@ -32,31 +32,11 @@
  * delay_ms(unsigned long num_ms)
  * get_ms(unsigned long *count)
  */
-#define MPU6050
-
-#if defined STM32F407xx
-
-#include "mpu6050.h"
-#include "stm32f4xx.h"
+#if defined STM32_MPU6050
 #include "i2c.h"
-#include "stm32f4xx_hal.h"
-
-#define i2c_write   dmp_i2c_write
-#define i2c_read    dmp_i2c_read
-#define delay_ms    my_hal_delay
-#define get_ms      f4_get_tick_ms_cnt
-
-#define log_i       printf
-#define log_e       printf
-
-#define fabs        fabsf
-#define min(x,y)    ((x<y)?x:y)
-
-#elif defined MOTION_DRIVER_TARGET_MSP430
-#include "msp430.h"
-#include "msp430_clock.h"
-#define delay_ms    msp430_delay_ms
-#define get_ms      msp430_get_clock_ms
+//#include "cmsis_os.h"
+#define delay_ms    HAL_Delay
+#define get_ms(p)      do{ *p = HAL_GetTick();}while(0)
 #define log_i(...)     do {} while (0)
 #define log_e(...)     do {} while (0)
 
@@ -646,8 +626,8 @@ int dmp_set_accel_bias(long *bias)
 
     mpu_get_accel_sens(&accel_sens);
     accel_sf = (long long)accel_sens << 15;
-    __no_operation();
-
+    // __no_operation();
+    __NOP();
     accel_bias_body[0] = bias[dmp.orient & 3];
     if (dmp.orient & 4)
         accel_bias_body[0] *= -1;

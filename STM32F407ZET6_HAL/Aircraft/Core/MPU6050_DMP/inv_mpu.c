@@ -23,7 +23,6 @@
 #include <string.h>
 #include <math.h>
 #include "inv_mpu.h"
-#include "mpu6050.h"
 
 /* The following functions must be defined for this platform:
  * i2c_write(unsigned char slave_addr, unsigned char reg_addr,
@@ -37,42 +36,22 @@
  * fabsf(float x)
  * min(int a, int b)
  */
-#define MPU6050 
-
-#if defined STM32F407xx
-
-#include "mpu6050.h"
-#include "stm32f4xx.h"
+#if defined STM32_MPU6050
 #include "i2c.h"
-#include "stm32f4xx_hal.h"
-
-#define i2c_write   dmp_i2c_write
-#define i2c_read    dmp_i2c_read
-#define delay_ms    my_hal_delay
-#define get_ms      f4_get_tick_ms_cnt
-
-#define log_i       printf
-#define log_e       printf
-
-#define fabs        fabsf
-#define min(x,y)    ((x<y)?x:y)
-
-#elif defined MOTION_DRIVER_TARGET_MSP430
-#include "msp430.h"
-#include "msp430_i2c.h"
-#include "msp430_clock.h"
-#include "msp430_interrupt.h"
-#define i2c_write   msp430_i2c_write
-#define i2c_read    msp430_i2c_read
-#define delay_ms    msp430_delay_ms
-#define get_ms      msp430_get_clock_ms
-static inline int reg_int_cb(struct int_param_s *int_param)
-{
-    return msp430_reg_int_cb(int_param->cb, int_param->pin, int_param->lp_exit,
-        int_param->active_low);
-}
-#define log_i(...)     do {} while (0)
-#define log_e(...)     do {} while (0)
+//#include "cmsis_os.h"
+#define i2c_write(dev_addr,reg_addr,data_size,p_data) \
+        HAL_I2C_Mem_Write(&hi2c1,dev_addr,reg_addr,I2C_MEMADD_SIZE_8BIT,p_data,data_size,0xF)
+#define i2c_read(dev_addr,reg_addr,data_size,p_data) \
+        HAL_I2C_Mem_Read(&hi2c1,dev_addr,reg_addr,I2C_MEMADD_SIZE_8BIT,p_data,data_size,0xF)
+#define delay_ms    HAL_Delay
+#define get_ms(p)      do{ *p = HAL_GetTick();}while(0)
+//static inline int reg_int_cb(struct int_param_s *int_param)
+//{
+//    return msp430_reg_int_cb(int_param->cb, int_param->pin, int_param->lp_exit,
+//        int_param->active_low);
+//}
+#define log_i(...)     printf(__VA_ARGS__)
+#define log_e(...)     printf(__VA_ARGS__)
 /* labs is already defined by TI's toolchain. */
 /* fabs is for doubles. fabsf is for floats. */
 #define fabs        fabsf
@@ -504,7 +483,7 @@ const struct gyro_reg_s reg = {
 #endif
 };
 const struct hw_s hw = {
-    .addr           = MPU_ADDR,
+    .addr           = 0xd0,
     .max_fifo       = 1024,
     .num_reg        = 118,
     .temp_sens      = 340,
@@ -808,8 +787,8 @@ int mpu_init(struct int_param_s *int_param)
     if (mpu_configure_fifo(0))
         return -1;
 
-    if (int_param)
-        reg_int_cb(int_param);
+    // if (int_param)
+    //     reg_int_cb(int_param);
 
 #ifdef AK89xx_SECONDARY
     setup_compass();
@@ -2805,144 +2784,4 @@ lp_int_restore:
 /**
  *  @}
  */
-#define q30  1073741824.0f
 
-static signed char gyro_orientation[9] = { 1, 0, 0,
-                                           0, 1, 0,
-                                           0, 0, 1};
-
-uint8_t run_self_test(void)
-{
-	int result;
-	//char test_packet[4] = {0};
-	long gyro[3], accel[3]; 
-	result = mpu_run_self_test(gyro, accel);
-	if (result == 0x3) 
-	{
-		/* Test passed. We can trust the gyro data here, so let's push it down
-		* to the DMP.
-		*/
-		float sens;
-		unsigned short accel_sens;
-		mpu_get_gyro_sens(&sens);
-		gyro[0] = (long)(gyro[0] * sens);
-		gyro[1] = (long)(gyro[1] * sens);
-		gyro[2] = (long)(gyro[2] * sens);
-		dmp_set_gyro_bias(gyro);
-		mpu_get_accel_sens(&accel_sens);
-		accel[0] *= accel_sens;
-		accel[1] *= accel_sens;
-		accel[2] *= accel_sens;
-		dmp_set_accel_bias(accel);
-		return 0;
-	}else return 1;
-}
-
-unsigned short inv_orientation_matrix_to_scalar(
-    const signed char *mtx)
-{
-    unsigned short scalar; 
-    /*
-       XYZ  010_001_000 恒等矩阵
-       XZY  001_010_000
-       YXZ  010_000_001
-       YZX  000_010_001
-       ZXY  001_000_010
-       ZYX  000_001_010
-     */
-
-    scalar = inv_row_2_scale(mtx);
-    scalar |= inv_row_2_scale(mtx + 3) << 3;
-    scalar |= inv_row_2_scale(mtx + 6) << 6;
-
-
-    return scalar;
-}
-
-unsigned short inv_row_2_scale(const signed char *row)
-{
-    unsigned short b;
-
-    if (row[0] > 0)
-        b = 0;
-    else if (row[0] < 0)
-        b = 4;
-    else if (row[1] > 0)
-        b = 1;
-    else if (row[1] < 0)
-        b = 5;
-    else if (row[2] > 0)
-        b = 2;
-    else if (row[2] < 0)
-        b = 6;
-    else
-        b = 7;      // error
-    return b;
-}
-
-void mget_ms(unsigned long *time)
-{
-
-}
-
-uint8_t mpu_dmp_init(void)
-{
-	u8 res=0;
-	MPU_IIC_Init(); 
-	if(mpu_init()==0)
-	{	 
-		res=mpu_set_sensors(INV_XYZ_GYRO|INV_XYZ_ACCEL);
-		if(res)return 1; 
-		res=mpu_configure_fifo(INV_XYZ_GYRO|INV_XYZ_ACCEL);
-		if(res)return 2; 
-		res=mpu_set_sample_rate(DEFAULT_MPU_HZ);
-		if(res)return 3; 
-		res=dmp_load_motion_driver_firmware();	
-		if(res)return 4; 
-		res=dmp_set_orientation(inv_orientation_matrix_to_scalar(gyro_orientation));
-		if(res)return 5; 
-		res=dmp_enable_feature(DMP_FEATURE_6X_LP_QUAT|DMP_FEATURE_TAP|
-		    DMP_FEATURE_ANDROID_ORIENT|DMP_FEATURE_SEND_RAW_ACCEL|DMP_FEATURE_SEND_CAL_GYRO|
-		    DMP_FEATURE_GYRO_CAL);
-		if(res)return 6; 
-		res=dmp_set_fifo_rate(DEFAULT_MPU_HZ);
-		if(res)return 7;   
-		res=run_self_test();	
-		if(res)return 8;    
-		res=mpu_set_dmp_state(1);
-		if(res)return 9;     
-	}else return 10;
-	return 0;
-}
-
-uint8_t mpu_dmp_get_data(float *pitch,float *roll,float *yaw)
-{
-	float q0=1.0f,q1=0.0f,q2=0.0f,q3=0.0f;
-	unsigned long sensor_timestamp;
-	short gyro[3], accel[3], sensors;
-	unsigned char more;
-	long quat[4]; 
-	if(dmp_read_fifo(gyro, accel, quat, &sensor_timestamp, &sensors,&more))return 1;	 
-	/* Gyro and accel data are written to the FIFO by the DMP in chip frame and hardware units.
-	 * This behavior is convenient because it keeps the gyro and accel outputs of dmp_read_fifo and mpu_read_fifo consistent.
-	**/
-	/*if (sensors & INV_XYZ_GYRO )
-	send_packet(PACKET_TYPE_GYRO, gyro);
-	if (sensors & INV_XYZ_ACCEL)
-	send_packet(PACKET_TYPE_ACCEL, accel); */
-	/* Unlike gyro and accel, quaternions are written to the FIFO in the body frame, q30.
-	 * The orientation is set by the scalar passed to dmp_set_orientation during initialization. 
-	**/
-	if(sensors&INV_WXYZ_QUAT) 
-	{
-		q0 = quat[0] / q30;	
-		q1 = quat[1] / q30;
-		q2 = quat[2] / q30;
-		q3 = quat[3] / q30; 
-
-		*pitch = asin(-2 * q1 * q3 + 2 * q0* q2)* 57.3;	// pitch
-		*roll  = atan2(2 * q2 * q3 + 2 * q0 * q1, -2 * q1 * q1 - 2 * q2* q2 + 1)* 57.3;	// roll
-		*yaw   = atan2(2*(q1*q2 + q0*q3),q0*q0+q1*q1-q2*q2-q3*q3) * 57.3;	//yaw
-	}else return 2;
-	return 0;
-}
