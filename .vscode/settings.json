@@ -9,6 +9,8 @@
         }
     },
     "files.associations": {
-        "stm32f4xx_hal.h": "c"
-    }
+        "stm32f4xx_hal.h": "c",
+        "i2c.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

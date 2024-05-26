@@ -32,7 +32,27 @@
  * delay_ms(unsigned long num_ms)
  * get_ms(unsigned long *count)
  */
-#if defined MOTION_DRIVER_TARGET_MSP430
+#define MPU6050
+
+#if defined STM32F407xx
+
+#include "mpu6050.h"
+#include "stm32f4xx.h"
+#include "i2c.h"
+#include "stm32f4xx_hal.h"
+
+#define i2c_write   dmp_i2c_write
+#define i2c_read    dmp_i2c_read
+#define delay_ms    my_hal_delay
+#define get_ms      f4_get_tick_ms_cnt
+
+#define log_i       printf
+#define log_e       printf
+
+#define fabs        fabsf
+#define min(x,y)    ((x<y)?x:y)
+
+#elif defined MOTION_DRIVER_TARGET_MSP430
 #include "msp430.h"
 #include "msp430_clock.h"
 #define delay_ms    msp430_delay_ms

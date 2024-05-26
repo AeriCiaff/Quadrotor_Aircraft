@@ -8,7 +8,7 @@
 #include "inv_mpu_dmp_motion_driver.h"
 #include "stm32f4xx_hal.h"
 
-#define		MPU_I2C_HANDLE		hi2c2
+#define		MPU_I2C_HANDLE		hi2c1
 #define	    MPU_ADDR            0x68
 #define     MPU_WRITE           0xD0
 #define     MPU_READ            0xD1
