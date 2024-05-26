@@ -1,0 +1,14 @@
+{
+    "cSpell.ignoreWords": [],
+    "cSpell.customDictionaries": {
+        "custom-dictionary-workspace": {
+            "name": "custom-dictionary-workspace",
+            "path": "${workspaceFolder:Quadrotor_Aircraft}/.cspell/custom-dictionary-workspace.txt",
+            "addWords": true,
+            "scope": "workspace"
+        }
+    },
+    "files.associations": {
+        "stm32f4xx_hal.h": "c"
+    }
+}
