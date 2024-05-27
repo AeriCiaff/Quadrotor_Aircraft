@@ -1,4 +1,4 @@
-aircraft/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
+aircraft/bldc_1.o: ..\Core\BLDC\bldc.c ..\Core\Inc\main.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \
@@ -33,9 +33,4 @@ aircraft/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\Core\Inc\i2c.h ..\Core\Inc\tim.h ..\Core\Inc\usart.h \
-  ..\Core\Inc\gpio.h ..\Core\BLDC\bldc.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
-  ..\Core\MPU6050_DMP\mpu6050.h ..\Core\MPU6050_DMP\inv_mpu.h \
-  ..\Core\MPU6050_DMP\inv_mpu_dmp_motion_driver.h \
-  ..\Core\BMP280\bmp280.h ..\Core\OLED(SH1106)\oled.h
+  ..\Core\Inc\tim.h

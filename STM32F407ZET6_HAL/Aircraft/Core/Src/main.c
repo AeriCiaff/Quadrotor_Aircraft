@@ -31,6 +31,7 @@
 #include "inv_mpu.h"
 #include "inv_mpu_dmp_motion_driver.h"
 #include "bmp280.h"
+#include "oled.h"
 
 /* USER CODE END Includes */
 
@@ -98,11 +99,14 @@ float pitch,roll,yaw;
   MX_TIM14_Init();
   MX_I2C1_Init();
   MX_I2C2_Init();
+  MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
 	HAL_TIM_PWM_Start(&htim14,TIM_CHANNEL_1);
 	Motor_Init(&htim14,TIM_CHANNEL_1);
 	MPU6050_DMP_Init();
   BMP280_Init();
+	OLED_Init();
+	OLED_Display_On();
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);
   /* USER CODE END 2 */
 
@@ -117,7 +121,10 @@ float pitch,roll,yaw;
 		press = BMP280_Calculate_Press();
     printf("pitch = %.2f, roll = %.2f, yaw = %.2f\r\n", pitch,roll,yaw);
 		printf("T: %.2f  P: %f \r\n", temp, press);
+		OLED_ShowChar_EN(1,1,'A',1);
 		HAL_Delay(100);
+		OLED_Clear();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

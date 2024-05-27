@@ -10,7 +10,7 @@ static void OLED_Write_Cmd(uint8_t cmd)
 	buf[1] = cmd;
 	
 
-	HAL_I2C_Master_Transmit(&hi2c1, 0x78, buf, 2, 0xFFFF);
+	HAL_I2C_Master_Transmit(&hi2c3, 0x78, buf, 2, 0xFFFF);
 }
 
 static void OLED_Write_Dat(uint8_t dat)
@@ -20,7 +20,7 @@ static void OLED_Write_Dat(uint8_t dat)
 	buf[1] = dat;
 	
 
-	HAL_I2C_Master_Transmit(&hi2c1, 0x78, buf, 2, 0xFFFF);
+	HAL_I2C_Master_Transmit(&hi2c3, 0x78, buf, 2, 0xFFFF);
 }
 
 void OLED_Clear(void)
@@ -172,22 +172,22 @@ void OLED_ShowString(uint8_t x,uint8_t y,char *chr,uint8_t size)
 }
 
 
-void OLED_ShowChar_CN(uint8_t x,uint8_t y,uint8_t no)
-{      			    
-	uint8_t t,adder=0;
-	OLED_Set_Pos(x,y);	
-    for(t=0;t<16;t++)
-		{
-				OLED_Write_Dat(Hzk[2*no][t]);
-				adder+=1;
-     }	
-		OLED_Set_Pos(x,y+1);	
-    for(t=0;t<16;t++)
-			{	
-				OLED_Write_Dat(Hzk[2*no+1][t]);
-				adder+=1;
-      }					
-}
+//void OLED_ShowChar_CN(uint8_t x,uint8_t y,uint8_t no)
+//{      			    
+//	uint8_t t,adder=0;
+//	OLED_Set_Pos(x,y);	
+//    for(t=0;t<16;t++)
+//		{
+//				OLED_Write_Dat(Hzk[2*no][t]);
+//				adder+=1;
+//     }	
+//		OLED_Set_Pos(x,y+1);	
+//    for(t=0;t<16;t++)
+//			{	
+//				OLED_Write_Dat(Hzk[2*no+1][t]);
+//				adder+=1;
+//      }					
+//}
 
 
 void OLED_DrawBMP(uint8_t x0, uint8_t y0,uint8_t x1, uint8_t y1,uint8_t BMP[])
