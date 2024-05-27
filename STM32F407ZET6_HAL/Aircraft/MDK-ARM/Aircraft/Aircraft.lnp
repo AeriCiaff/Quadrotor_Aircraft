@@ -11,6 +11,7 @@
 "aircraft\inv_mpu_dmp_motion_driver.o"
 "aircraft\mpu6050.o"
 "aircraft\bldc.o"
+"aircraft\bmp280.o"
 "aircraft\stm32f4xx_hal_i2c.o"
 "aircraft\stm32f4xx_hal_i2c_ex.o"
 "aircraft\stm32f4xx_hal_rcc.o"

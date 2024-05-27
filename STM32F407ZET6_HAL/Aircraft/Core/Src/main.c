@@ -30,6 +30,7 @@
 #include "mpu6050.h"
 #include "inv_mpu.h"
 #include "inv_mpu_dmp_motion_driver.h"
+#include "bmp280.h"
 
 /* USER CODE END Includes */
 
@@ -62,7 +63,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+float temp, press;
 /* USER CODE END 0 */
 
 /**
@@ -73,9 +74,6 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 float pitch,roll,yaw;
-short aacx,aacy,aacz;
-short gyrox,gyroy,gyroz;
-float temp;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -99,10 +97,12 @@ float temp;
   MX_UART4_Init();
   MX_TIM14_Init();
   MX_I2C1_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
 	HAL_TIM_PWM_Start(&htim14,TIM_CHANNEL_1);
 	Motor_Init(&htim14,TIM_CHANNEL_1);
 	MPU6050_DMP_Init();
+  BMP280_Init();
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);
   /* USER CODE END 2 */
 
@@ -111,8 +111,12 @@ float temp;
   while (1)
   {
     MPU6050_DMP_GetData(&pitch,&roll,&yaw);
-    printf("pitch = %0.1f, roll = %0.1f, yaw = %0.1f\r\n", pitch,roll,yaw);
-
+    BMP280_Measure_Cmd();
+		BMP280_ReadData();
+    temp = BMP280_Calculate_Temp();
+		press = BMP280_Calculate_Press();
+    printf("pitch = %.2f, roll = %.2f, yaw = %.2f\r\n", pitch,roll,yaw);
+		printf("T: %.2f  P: %f \r\n", temp, press);
 		HAL_Delay(100);
     /* USER CODE END WHILE */
 

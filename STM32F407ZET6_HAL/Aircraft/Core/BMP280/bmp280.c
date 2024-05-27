@@ -67,35 +67,35 @@ struct BMP280Paramter{
 //BMP280软重启
 void BMP280_Restart(void){
 	uint8_t reset_cmd = BMP280_RESET_CMD;
-	HAL_I2C_Mem_Write(&hi2c1, (BMP280_ADDR << 1), BMP280_RESET_REG, REG_SIZE, &reset_cmd, 1, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Write(&hi2c2, (BMP280_ADDR << 1), BMP280_RESET_REG, REG_SIZE, &reset_cmd, 1, HAL_MAX_DELAY);
 }
 
 //修正参数读取函数
 void BMP280_ReadParameter(void){
 	uint8_t buffer[2];
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_T1, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_T1, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.T1 = (uint16_t)(buffer[1] << 8 | buffer[0]);
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_T2, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_T2, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.T2 = (uint16_t)(buffer[1] << 8 | buffer[0]); 
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_T3, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_T3, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.T3 = (uint16_t)(buffer[1] << 8 | buffer[0]);
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P1, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P1, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.P1 = (uint16_t)(buffer[1] << 8 | buffer[0]);	
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P2, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P2, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.P2 = (uint16_t)(buffer[1] << 8 | buffer[0]);
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P3, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P3, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.P3 = (uint16_t)(buffer[1] << 8 | buffer[0]);
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P4, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P4, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.P4 = (uint16_t)(buffer[1] << 8 | buffer[0]);
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P5, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P5, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.P5 = (uint16_t)(buffer[1] << 8 | buffer[0]);	
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P6, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P6, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.P6 = (uint16_t)(buffer[1] << 8 | buffer[0]);
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P7, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P7, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.P7 = (uint16_t)(buffer[1] << 8 | buffer[0]);
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P8, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P8, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.P8 = (uint16_t)(buffer[1] << 8 | buffer[0]);
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P9, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_REG_ADDR_LSB_P9, REG_SIZE, buffer, 2, HAL_MAX_DELAY);
 	BMP280.P9 = (uint16_t)(buffer[1] << 8 | buffer[0]);
 }
 
@@ -108,22 +108,22 @@ void BMP280_Init(void){
 	uint8_t ctrl_meas_cmd = BMP280_CTRL_MEAS_CMD;
 	uint8_t config_cmd = BMP280_CONFIG_CMD;
 
-	HAL_I2C_Mem_Write(&hi2c1, (BMP280_ADDR << 1), BMP280_CTRL_MEAS_REG, REG_SIZE, &ctrl_meas_cmd, 1, HAL_MAX_DELAY);
-	HAL_I2C_Mem_Write(&hi2c1, (BMP280_ADDR << 1), BMP280_CONFIG_REG, REG_SIZE, &config_cmd, 1, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Write(&hi2c2, (BMP280_ADDR << 1), BMP280_CTRL_MEAS_REG, REG_SIZE, &ctrl_meas_cmd, 1, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Write(&hi2c2, (BMP280_ADDR << 1), BMP280_CONFIG_REG, REG_SIZE, &config_cmd, 1, HAL_MAX_DELAY);
 	BMP280_ReadParameter();
 }
 
 
 void BMP280_Measure_Cmd(void){
 	uint8_t measure_cmd = BMP280_CTRL_MEAS_CMD;
-	HAL_I2C_Mem_Write(&hi2c1, (BMP280_ADDR << 1), BMP280_CTRL_MEAS_REG, REG_SIZE, &measure_cmd, 1, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Write(&hi2c2, (BMP280_ADDR << 1), BMP280_CTRL_MEAS_REG, REG_SIZE, &measure_cmd, 1, HAL_MAX_DELAY);
 }
 
 //获取BMP280气压和温度数据
 void BMP280_ReadData(void){
 	uint8_t data[6];
 	
-	HAL_I2C_Mem_Read(&hi2c1, (BMP280_ADDR << 1), BMP280_PRESS_MSB_REG, REG_SIZE, data, 6, HAL_MAX_DELAY);
+	HAL_I2C_Mem_Read(&hi2c2, (BMP280_ADDR << 1), BMP280_PRESS_MSB_REG, REG_SIZE, data, 6, HAL_MAX_DELAY);
 	BMP280.ADC_P = (uint32_t)((data[0] << 12) | (data[1] << 4) | (data[2] >> 4));
 	BMP280.ADC_T = (uint32_t)((data[3] << 12) | (data[4] << 4) | (data[5] >> 4));
 }

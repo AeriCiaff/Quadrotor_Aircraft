@@ -1,7 +1,7 @@
 #ifndef __BMP280_H__
 #define __BMP280_H__
 
-#include "stm32f1xx_hal.h"
+#include "stm32f4xx_hal.h"
 #include "i2c.h"
 
 #define BMP280_ADDR				0x76

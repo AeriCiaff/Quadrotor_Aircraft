@@ -57,6 +57,18 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define LED_Pin GPIO_PIN_13
+#define LED_GPIO_Port GPIOC
+#define BMP280_SDA_Pin GPIO_PIN_0
+#define BMP280_SDA_GPIO_Port GPIOF
+#define BMP280_SCL_Pin GPIO_PIN_1
+#define BMP280_SCL_GPIO_Port GPIOF
+#define BLDC_Init_Pin GPIO_PIN_9
+#define BLDC_Init_GPIO_Port GPIOF
+#define MPU6050_SCL_Pin GPIO_PIN_6
+#define MPU6050_SCL_GPIO_Port GPIOB
+#define MPU6050_SDA_Pin GPIO_PIN_7
+#define MPU6050_SDA_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
