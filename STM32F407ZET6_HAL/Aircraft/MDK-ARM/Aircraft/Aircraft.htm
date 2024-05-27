@@ -3,11 +3,11 @@
 <title>Static Call Graph - [Aircraft\Aircraft.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Aircraft\Aircraft.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Sun May 26 23:11:41 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Mon May 27 16:25:01 2024
 <BR><P>
 <H3>Maximum Stack Usage =        480 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-main &rArr; MPU6050_DMP_init &rArr; run_self_test &rArr; mpu_run_self_test &rArr; mpu_set_dmp_state &rArr; mpu_set_sample_rate &rArr; mpu_lp_accel_mode &rArr; mpu_configure_fifo &rArr; mpu_reset_fifo &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite
+main &rArr; MPU6050_DMP_Init &rArr; run_self_test &rArr; mpu_run_self_test &rArr; mpu_set_dmp_state &rArr; mpu_set_sample_rate &rArr; mpu_lp_accel_mode &rArr; mpu_configure_fifo &rArr; mpu_reset_fifo &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite
 <P>
 <H3>
 Mutually Recursive functions
@@ -427,7 +427,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_double_epilogue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Get_Date
+<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_GetData
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_asin
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
@@ -436,7 +436,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[93]"></a>__aeabi_f2d</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, f2d.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Get_Date
+<BR><BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_GetData
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -445,7 +445,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_float_round
 </UL>
-<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Get_Date
+<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_GetData
 </UL>
 
 <P><STRONG><a name="[da]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
@@ -852,8 +852,8 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(RESET)
 </UL>
-<P><STRONG><a name="[91]"></a>MPU6050_DMP_Get_Date</STRONG> (Thumb, 420 bytes, Stack size 128 bytes, mpu6050.o(.text.MPU6050_DMP_Get_Date))
-<BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = MPU6050_DMP_Get_Date &rArr; dmp_read_fifo &rArr; mpu_read_fifo_stream &rArr; mpu_reset_fifo &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite
+<P><STRONG><a name="[91]"></a>MPU6050_DMP_GetData</STRONG> (Thumb, 420 bytes, Stack size 128 bytes, mpu6050.o(.text.MPU6050_DMP_GetData))
+<BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = MPU6050_DMP_GetData &rArr; dmp_read_fifo &rArr; mpu_read_fifo_stream &rArr; mpu_reset_fifo &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
@@ -865,8 +865,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[96]"></a>MPU6050_DMP_init</STRONG> (Thumb, 174 bytes, Stack size 16 bytes, mpu6050.o(.text.MPU6050_DMP_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 448<LI>Call Chain = MPU6050_DMP_init &rArr; run_self_test &rArr; mpu_run_self_test &rArr; mpu_set_dmp_state &rArr; mpu_set_sample_rate &rArr; mpu_lp_accel_mode &rArr; mpu_configure_fifo &rArr; mpu_reset_fifo &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite
+<P><STRONG><a name="[96]"></a>MPU6050_DMP_Init</STRONG> (Thumb, 174 bytes, Stack size 16 bytes, mpu6050.o(.text.MPU6050_DMP_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 448<LI>Call Chain = MPU6050_DMP_Init &rArr; run_self_test &rArr; mpu_run_self_test &rArr; mpu_set_dmp_state &rArr; mpu_set_sample_rate &rArr; mpu_lp_accel_mode &rArr; mpu_configure_fifo &rArr; mpu_reset_fifo &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;run_self_test
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inv_orientation_matrix_to_scalar
@@ -988,7 +988,7 @@ Global Symbols
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_write_mem
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_reset_fifo
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 </UL>
 
 <P><STRONG><a name="[9b]"></a>dmp_load_motion_driver_firmware</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, inv_mpu_dmp_motion_driver.o(.text.dmp_load_motion_driver_firmware))
@@ -996,7 +996,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_load_firmware
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 </UL>
 
 <P><STRONG><a name="[92]"></a>dmp_read_fifo</STRONG> (Thumb, 464 bytes, Stack size 72 bytes, inv_mpu_dmp_motion_driver.o(.text.dmp_read_fifo))
@@ -1006,7 +1006,7 @@ Global Symbols
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_reset_fifo
 </UL>
-<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Get_Date
+<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_GetData
 </UL>
 
 <P><STRONG><a name="[b2]"></a>dmp_set_accel_bias</STRONG> (Thumb, 194 bytes, Stack size 24 bytes, inv_mpu_dmp_motion_driver.o(.text.dmp_set_accel_bias))
@@ -1023,7 +1023,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_write_mem
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 </UL>
 
 <P><STRONG><a name="[b4]"></a>dmp_set_gyro_bias</STRONG> (Thumb, 224 bytes, Stack size 24 bytes, inv_mpu_dmp_motion_driver.o(.text.dmp_set_gyro_bias))
@@ -1039,7 +1039,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_write_mem
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 </UL>
 
 <P><STRONG><a name="[ae]"></a>dmp_set_tap_thresh</STRONG> (Thumb, 332 bytes, Stack size 24 bytes, inv_mpu_dmp_motion_driver.o(.text.dmp_set_tap_thresh))
@@ -1061,13 +1061,13 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> printfa.o(i.__0printf)
 </UL>
 <P><STRONG><a name="[5b]"></a>main</STRONG> (Thumb, 152 bytes, Stack size 32 bytes, main.o(.text.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 480<LI>Call Chain = main &rArr; MPU6050_DMP_init &rArr; run_self_test &rArr; mpu_run_self_test &rArr; mpu_set_dmp_state &rArr; mpu_set_sample_rate &rArr; mpu_lp_accel_mode &rArr; mpu_configure_fifo &rArr; mpu_reset_fifo &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite
+<BR><BR>[Stack]<UL><LI>Max Depth = 480<LI>Call Chain = main &rArr; MPU6050_DMP_Init &rArr; run_self_test &rArr; mpu_run_self_test &rArr; mpu_set_dmp_state &rArr; mpu_set_sample_rate &rArr; mpu_lp_accel_mode &rArr; mpu_configure_fifo &rArr; mpu_reset_fifo &rArr; HAL_I2C_Mem_Write &rArr; I2C_RequestMemoryWrite
 </UL>
 <BR>[Calls]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Get_Date
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_GetData
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Init
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_TIM_PWM_Start
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_I2C1_Init
@@ -1089,7 +1089,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_run_self_test
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_lp_accel_mode
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_init
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 </UL>
 
 <P><STRONG><a name="[b5]"></a>mpu_get_accel_fsr</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, inv_mpu.o(.text.mpu_get_accel_fsr))
@@ -1120,7 +1120,7 @@ Global Symbols
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;puts
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 </UL>
 
 <P><STRONG><a name="[b0]"></a>mpu_load_firmware</STRONG> (Thumb, 418 bytes, Stack size 88 bytes, inv_mpu.o(.text.mpu_load_firmware))
@@ -1206,7 +1206,7 @@ Global Symbols
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_Mem_Write
 </UL>
 <BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_run_self_test
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 </UL>
 
 <P><STRONG><a name="[bb]"></a>mpu_set_lpf</STRONG> (Thumb, 176 bytes, Stack size 24 bytes, inv_mpu.o(.text.mpu_set_lpf))
@@ -1226,7 +1226,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_set_dmp_state
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_run_self_test
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_init
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 </UL>
 
 <P><STRONG><a name="[98]"></a>mpu_set_sensors</STRONG> (Thumb, 288 bytes, Stack size 40 bytes, inv_mpu.o(.text.mpu_set_sensors))
@@ -1237,7 +1237,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_run_self_test
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_init
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 </UL>
 
 <P><STRONG><a name="[ad]"></a>mpu_write_mem</STRONG> (Thumb, 132 bytes, Stack size 40 bytes, inv_mpu.o(.text.mpu_write_mem))
@@ -1294,7 +1294,7 @@ Global Symbols
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_invalid
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan
 </UL>
-<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Get_Date
+<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_GetData
 </UL>
 
 <P><STRONG><a name="[cb]"></a>__hardfp_atan</STRONG> (Thumb, 622 bytes, Stack size 48 bytes, atan.o(i.__hardfp_atan))
@@ -1326,7 +1326,7 @@ Global Symbols
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_infnan2
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atan
 </UL>
-<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Get_Date
+<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_GetData
 </UL>
 
 <P><STRONG><a name="[c8]"></a>__kernel_poly</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, poly.o(i.__kernel_poly))
@@ -1433,7 +1433,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[9c]"></a>inv_orientation_matrix_to_scalar</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, mpu6050.o(.text.inv_orientation_matrix_to_scalar))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 </UL>
 
 <P><STRONG><a name="[a0]"></a>run_self_test</STRONG> (Thumb, 144 bytes, Stack size 40 bytes, mpu6050.o(.text.run_self_test))
@@ -1445,7 +1445,7 @@ Local Symbols
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_get_accel_sens
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_get_gyro_sens
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_init
+<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MPU6050_DMP_Init
 </UL>
 
 <P><STRONG><a name="[8f]"></a>I2C_WaitOnFlagUntilTimeout</STRONG> (Thumb, 336 bytes, Stack size 24 bytes, stm32f4xx_hal_i2c.o(.text.I2C_WaitOnFlagUntilTimeout))

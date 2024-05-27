@@ -102,7 +102,7 @@ float temp;
   /* USER CODE BEGIN 2 */
 	HAL_TIM_PWM_Start(&htim14,TIM_CHANNEL_1);
 	Motor_Init(&htim14,TIM_CHANNEL_1);
-	MPU6050_DMP_init();
+	MPU6050_DMP_Init();
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);
   /* USER CODE END 2 */
 
@@ -110,8 +110,9 @@ float temp;
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		MPU6050_DMP_Get_Date(&pitch,&roll,&yaw);
-		printf("pitch = %f, roll = %f, yaw = %f\r\n", pitch,roll,yaw);
+    MPU6050_DMP_GetData(&pitch,&roll,&yaw);
+    printf("pitch = %0.1f, roll = %0.1f, yaw = %0.1f\r\n", pitch,roll,yaw);
+
 		HAL_Delay(100);
     /* USER CODE END WHILE */
 

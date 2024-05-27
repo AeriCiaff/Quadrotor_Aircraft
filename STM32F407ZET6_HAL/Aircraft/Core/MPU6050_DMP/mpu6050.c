@@ -1,3 +1,4 @@
+#include "stm32f407xx.h"
 #include "mpu6050.h"
 #include "inv_mpu.h"
 #include "inv_mpu_dmp_motion_driver.h"
@@ -45,7 +46,7 @@ static unsigned short inv_orientation_matrix_to_scalar(
     unsigned short scalar;
 
     /*
-       XYZ  010_001_000 Identity Matrix
+       XYZ  010_001_000 恒等矩阵
        XZY  001_010_000
        YXZ  010_000_001
        YZX  000_010_001
@@ -90,7 +91,7 @@ static int run_self_test(void)
     return 0;
 }
 
-int MPU6050_DMP_init(void)
+int MPU6050_DMP_Init(void)
 {
     int ret;
     struct int_param_s int_param;
@@ -160,7 +161,7 @@ int MPU6050_DMP_init(void)
     return 0;
 }
 
-int MPU6050_DMP_Get_Date(float *pitch, float *roll, float *yaw)
+int MPU6050_DMP_GetData(float *pitch, float *roll, float *yaw)
 {
     float q0 = 1.0f, q1 = 0.0f, q2 = 0.0f, q3 = 0.0f;
     short gyro[3];
