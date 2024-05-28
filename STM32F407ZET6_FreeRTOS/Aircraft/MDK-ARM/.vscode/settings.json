@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "bmp280.h": "c",
+        "inv_mpu_dmp_motion_driver.h": "c",
+        "main.h": "c",
+        "cmsis_os.h": "c",
+        "initializer_list": "c",
+        "type_traits": "c"
+    }
+}
