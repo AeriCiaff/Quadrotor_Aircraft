@@ -53,5 +53,6 @@ void BMP280_Measure_Cmd(void);
 void BMP280_ReadData(void);
 float BMP280_Calculate_Temp(void);
 float BMP280_Calculate_Press(void);
+float BMP280_HighCalculate(void);
 
 #endif

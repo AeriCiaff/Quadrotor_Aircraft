@@ -34,4 +34,5 @@ aircraft/oled.o: ..\Core\OLED(SH1106)\oled.c ..\Core\OLED(SH1106)\oled.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\Core\OLED(SH1106)\oledfont.h
+  ..\Core\OLED(SH1106)\oledfont.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h

@@ -1,7 +1,7 @@
 #include "oled.h"
 #include "oledfont.h"
 #include "i2c.h"	   
-
+#include "math.h"
 
 static void OLED_Write_Cmd(uint8_t cmd)
 {
@@ -143,7 +143,7 @@ void OLED_ShowNum(uint8_t x,uint8_t y,float num,uint8_t len,uint8_t size)
 {         	
 	uint8_t t,temp,i = 0;
 	uint8_t enshow=0;
-	uint16_t k;
+	long int k;
 
 	if(num < 0){
 		OLED_ShowChar_EN(x,y,'-',size);
@@ -152,11 +152,19 @@ void OLED_ShowNum(uint8_t x,uint8_t y,float num,uint8_t len,uint8_t size)
 	else if(num > 0){
 		OLED_ShowChar_EN(x,y,'+',size);
 	}
-	k = num * 10;
+	k = num * 100;
 	for(t=0;t<len;t++)
-	{
-		temp = (k / oled_pow(10,len-t-1)) % 10;
-		if(enshow==0&&t<(len-1))
+	{	
+		if(t == len-3){
+			OLED_ShowChar_EN(x+8+(size/2)*t,y,'.',size); 
+			t++;
+		}
+		temp = (k / (int)pow(10,len-t-2)) % 10;
+		if(t > len - 3){
+			temp = (k / (int)pow(10,len-t-1)) % 10;
+		}
+
+		if(enshow==0&&t<(len-2))
 		{
 			if(temp==0)
 			{
@@ -165,12 +173,7 @@ void OLED_ShowNum(uint8_t x,uint8_t y,float num,uint8_t len,uint8_t size)
 			}
 			else enshow=1; 
 		}
-
-		if(t == len-1){
-			OLED_ShowChar_EN(x+(size/2)*t,y,'.',size); 
-			t++;
-		}
-		OLED_ShowChar_EN(x+(size/2)*t,y,temp+'0',size);		
+		OLED_ShowChar_EN(x+8+(size/2)*t,y,temp+'0',size);		
 	 	
 	}
 } 

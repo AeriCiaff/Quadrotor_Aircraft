@@ -1,5 +1,6 @@
 #include "stm32f4xx_hal.h"
 #include "i2c.h"
+#include "math.h"
 
 
 #define BMP280_ADDR				0x76
@@ -62,6 +63,10 @@ struct BMP280Paramter{
 	int32_t ADC_T;
 	int32_t ADC_P;
 	int32_t T_FINE;
+	int32_t Begin;
+	float Press;
+	float Temp;
+	float High;
 }BMP280;
 
 //BMP280软重启
@@ -137,7 +142,7 @@ float BMP280_Calculate_Temp(void){
 	var2 = (((((BMP280.ADC_T >> 4) - ((int32_t)BMP280.T1)) *((BMP280.ADC_T >> 4) - ((int32_t)BMP280.T1))) >>12) *((int32_t)BMP280.T3)) >>14;
 	BMP280.T_FINE = var1 + var2;
 	T = (BMP280.T_FINE * 5 +128) >> 8;
-	
+	BMP280.Temp = (float)T/100;
 	return (float)T/100;
 }
 
@@ -163,6 +168,14 @@ float BMP280_Calculate_Press(void){
     var1 = (((int64_t)BMP280.P9) * (p >> 13) * (p >> 13)) >> 25;
     var2 = (((int64_t)BMP280.P8) * p) >> 19;
     p = ((p + var1 + var2) >> 8) + (((int64_t)BMP280.P7) << 4);
+		BMP280.Press = (float)p/256;
     return (float)p/256;
   } 
+}
+
+
+
+float BMP280_HighCalculate(void){
+	BMP280.High = ((1-pow((BMP280.Press/1013.25),0.1903)) * 44330.77) / (BMP280.Temp+273.15);
+	return BMP280.High;
 }
