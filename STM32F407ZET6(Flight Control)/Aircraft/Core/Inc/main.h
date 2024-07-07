@@ -63,8 +63,14 @@ void Error_Handler(void);
 #define BMP280_SDA_GPIO_Port GPIOF
 #define BMP280_SCL_Pin GPIO_PIN_1
 #define BMP280_SCL_GPIO_Port GPIOF
-#define BLDC_Init_Pin GPIO_PIN_9
-#define BLDC_Init_GPIO_Port GPIOF
+#define BLDC1_Pin GPIO_PIN_7
+#define BLDC1_GPIO_Port GPIOF
+#define BLDC3_Pin GPIO_PIN_8
+#define BLDC3_GPIO_Port GPIOF
+#define BLDC4_Pin GPIO_PIN_9
+#define BLDC4_GPIO_Port GPIOF
+#define BLDC2_Pin GPIO_PIN_14
+#define BLDC2_GPIO_Port GPIOB
 #define OLED_SDA_Pin GPIO_PIN_9
 #define OLED_SDA_GPIO_Port GPIOC
 #define OLED_SCL_Pin GPIO_PIN_8

@@ -62,7 +62,6 @@ osThreadId defaultTaskHandle;
 osThreadId myTask02Handle;
 osThreadId myTask03Handle;
 osThreadId myTask04Handle;
-osThreadId myTask05Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -81,9 +80,8 @@ struct BMP280Sensor{
 
 void MPU6050_Task(void const * argument);
 void BMP280_Task(void const * argument);
-void MPU6050_ShowTask(void const * argument);
-void BMP280_ShowTask(void const * argument);
-void OLED_ShowTask(void const * argument);
+void BLDC1(void const * argument);
+void BLDC2(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -139,16 +137,12 @@ void MX_FREERTOS_Init(void) {
   myTask02Handle = osThreadCreate(osThread(myTask02), NULL);
 
   /* definition and creation of myTask03 */
-  osThreadDef(myTask03, MPU6050_ShowTask, osPriorityNormal, 0, 128);
+  osThreadDef(myTask03, BLDC1, osPriorityNormal, 0, 128);
   myTask03Handle = osThreadCreate(osThread(myTask03), NULL);
 
   /* definition and creation of myTask04 */
-  osThreadDef(myTask04, BMP280_ShowTask, osPriorityNormal, 0, 128);
+  osThreadDef(myTask04, BLDC2, osPriorityNormal, 0, 128);
   myTask04Handle = osThreadCreate(osThread(myTask04), NULL);
-
-  /* definition and creation of myTask05 */
-  osThreadDef(myTask05, OLED_ShowTask, osPriorityNormal, 0, 128);
-  myTask05Handle = osThreadCreate(osThread(myTask05), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -203,81 +197,41 @@ void BMP280_Task(void const * argument)
   /* USER CODE END BMP280_Task */
 }
 
-/* USER CODE BEGIN Header_MPU6050_ShowTask */
+/* USER CODE BEGIN Header_BLDC1 */
 /**
 * @brief Function implementing the myTask03 thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_MPU6050_ShowTask */
-void MPU6050_ShowTask(void const * argument)
+/* USER CODE END Header_BLDC1 */
+void BLDC1(void const * argument)
 {
-  /* USER CODE BEGIN MPU6050_ShowTask */
-
+  /* USER CODE BEGIN BLDC1 */
   /* Infinite loop */
   for(;;)
   {
-		OLED_ShowString(1,1,Yaw,16);
-		OLED_ShowNum(33,1,Angle.yaw,6,16);
-    OLED_ShowString(1,3,Pitch,16);
-    OLED_ShowNum(49,3,Angle.pitch,6,16);
-    OLED_ShowString(1,5,Roll,16);
-    OLED_ShowNum(41,5,Angle.roll,6,16);
-		osDelay(50);
+		Motor_Speed(&htim11, TIM_CHANNEL_1, 1100);
+    osDelay(10);
   }
-  /* USER CODE END MPU6050_ShowTask */
+  /* USER CODE END BLDC1 */
 }
 
-/* USER CODE BEGIN Header_BMP280_ShowTask */
+/* USER CODE BEGIN Header_BLDC2 */
 /**
 * @brief Function implementing the myTask04 thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_BMP280_ShowTask */
-void BMP280_ShowTask(void const * argument)
+/* USER CODE END Header_BLDC2 */
+void BLDC2(void const * argument)
 {
-  /* USER CODE BEGIN BMP280_ShowTask */
-
+  /* USER CODE BEGIN BLDC2 */
   /* Infinite loop */
   for(;;)
   {
-		OLED_ShowString(1,1,Temp,16);
-		OLED_ShowNum(41,1,BMP280Sensor.temp,6,16);
-		OLED_ShowString(1,3,Press,16);
-		OLED_ShowNum(49,3,BMP280Sensor.press,9,16);
-		OLED_ShowString(1,5,High,16);
-		OLED_ShowNum(41,5,BMP280Sensor.high,7,16);
-		osDelay(50);
+    osDelay(1);
   }
-  /* USER CODE END BMP280_ShowTask */
-}
-
-/* USER CODE BEGIN Header_OLED_ShowTask */
-/**
-* @brief Function implementing the myTask05 thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_OLED_ShowTask */
-void OLED_ShowTask(void const * argument)
-{
-  /* USER CODE BEGIN OLED_ShowTask */
-	vTaskSuspend(myTask04Handle);
-	vTaskSuspend(myTask03Handle);
-  /* Infinite loop */
-  for(;;)
-  {
-		vTaskSuspend(myTask04Handle);
-		OLED_Clear();
-		vTaskResume(myTask03Handle);
-		osDelay(3000);
-		vTaskSuspend(myTask03Handle);
-		OLED_Clear();
-		vTaskResume(myTask04Handle);
-		osDelay(3000);
-  }
-  /* USER CODE END OLED_ShowTask */
+  /* USER CODE END BLDC2 */
 }
 
 /* Private application code --------------------------------------------------*/
