@@ -108,13 +108,15 @@ int main(void)
   MX_TIM13_Init();
   /* USER CODE BEGIN 2 */
 	
-//  BMP280_Init();
-//	OLED_Init();
-//	OLED_Display_On();
-//	OLED_Clear();
+  BMP280_Init();
 	HAL_TIM_PWM_Start(&htim11, TIM_CHANNEL_1);
-	Motor_Init(&htim11, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim14, TIM_CHANNEL_1);
+	Motor_Init();
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);
+	HAL_Delay(5000);
+	Motor_Land();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in cmsis_os2.c) */

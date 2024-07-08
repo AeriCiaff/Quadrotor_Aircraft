@@ -57,11 +57,11 @@ char High[] = "High:";
 char Yaw[] = "Yaw:";
 char Pitch[] = "Pitch:";
 char Roll[] = "Roll:";
+uint16_t Speed;
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 osThreadId myTask02Handle;
 osThreadId myTask03Handle;
-osThreadId myTask04Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -80,8 +80,7 @@ struct BMP280Sensor{
 
 void MPU6050_Task(void const * argument);
 void BMP280_Task(void const * argument);
-void BLDC1(void const * argument);
-void BLDC2(void const * argument);
+void Hanging(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -137,12 +136,8 @@ void MX_FREERTOS_Init(void) {
   myTask02Handle = osThreadCreate(osThread(myTask02), NULL);
 
   /* definition and creation of myTask03 */
-  osThreadDef(myTask03, BLDC1, osPriorityNormal, 0, 128);
+  osThreadDef(myTask03, Hanging, osPriorityNormal, 0, 128);
   myTask03Handle = osThreadCreate(osThread(myTask03), NULL);
-
-  /* definition and creation of myTask04 */
-  osThreadDef(myTask04, BLDC2, osPriorityNormal, 0, 128);
-  myTask04Handle = osThreadCreate(osThread(myTask04), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -197,41 +192,26 @@ void BMP280_Task(void const * argument)
   /* USER CODE END BMP280_Task */
 }
 
-/* USER CODE BEGIN Header_BLDC1 */
+/* USER CODE BEGIN Header_Hanging */
 /**
 * @brief Function implementing the myTask03 thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_BLDC1 */
-void BLDC1(void const * argument)
+/* USER CODE END Header_Hanging */
+void Hanging(void const * argument)
 {
-  /* USER CODE BEGIN BLDC1 */
+  /* USER CODE BEGIN Hanging */
   /* Infinite loop */
   for(;;)
   {
-		Motor_Speed(&htim11, TIM_CHANNEL_1, 1100);
-    osDelay(10);
-  }
-  /* USER CODE END BLDC1 */
-}
-
-/* USER CODE BEGIN Header_BLDC2 */
-/**
-* @brief Function implementing the myTask04 thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_BLDC2 */
-void BLDC2(void const * argument)
-{
-  /* USER CODE BEGIN BLDC2 */
-  /* Infinite loop */
-  for(;;)
-  {
+		Motor_Speed(&htim11, TIM_CHANNEL_1, Speed);
+		Motor_Speed(&htim12, TIM_CHANNEL_1, Speed);
+		Motor_Speed(&htim13, TIM_CHANNEL_1, Speed);
+		Motor_Speed(&htim14, TIM_CHANNEL_1, Speed);
     osDelay(1);
   }
-  /* USER CODE END BLDC2 */
+  /* USER CODE END Hanging */
 }
 
 /* Private application code --------------------------------------------------*/

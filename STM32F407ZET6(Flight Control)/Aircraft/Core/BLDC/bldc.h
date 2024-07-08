@@ -3,14 +3,7 @@
 
 #include "tim.h"
 
-/*
-	* @:无刷电机(电调)初始化
-	* @:Motor_Init(&htim1, TIM_CHANNEL_1)
-	* @:&htimx:选择使用的定时器
-	* @:TIM_CHANNEL_1:选择使用的通道
-*/
-void Motor_Init(TIM_HandleTypeDef *htim, uint32_t Channel);
-
+void Motor_Init();
 
 /*
 	* @:无刷电机转速控制
@@ -21,4 +14,5 @@ void Motor_Init(TIM_HandleTypeDef *htim, uint32_t Channel);
 */
 void Motor_Speed(TIM_HandleTypeDef *htim, uint32_t Channel, uint16_t Speed);
 
+void Motor_Land();
 #endif
