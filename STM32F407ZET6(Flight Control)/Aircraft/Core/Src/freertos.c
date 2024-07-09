@@ -32,6 +32,7 @@
 #include "inv_mpu_dmp_motion_driver.h"
 #include "bmp280.h"
 #include "oled.h"
+#include "lora.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,10 +59,12 @@ char Yaw[] = "Yaw:";
 char Pitch[] = "Pitch:";
 char Roll[] = "Roll:";
 uint16_t Speed;
+uint8_t buffer[1];
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 osThreadId myTask02Handle;
 osThreadId myTask03Handle;
+osThreadId myTask04Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -81,6 +84,7 @@ struct BMP280Sensor{
 void MPU6050_Task(void const * argument);
 void BMP280_Task(void const * argument);
 void Hanging(void const * argument);
+void LoRa(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -138,6 +142,10 @@ void MX_FREERTOS_Init(void) {
   /* definition and creation of myTask03 */
   osThreadDef(myTask03, Hanging, osPriorityNormal, 0, 128);
   myTask03Handle = osThreadCreate(osThread(myTask03), NULL);
+
+  /* definition and creation of myTask04 */
+  osThreadDef(myTask04, LoRa, osPriorityNormal, 0, 128);
+  myTask04Handle = osThreadCreate(osThread(myTask04), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -212,6 +220,33 @@ void Hanging(void const * argument)
     osDelay(1);
   }
   /* USER CODE END Hanging */
+}
+
+/* USER CODE BEGIN Header_LoRa */
+/**
+* @brief Function implementing the myTask04 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_LoRa */
+void LoRa(void const * argument)
+{
+  /* USER CODE BEGIN LoRa */
+  /* Infinite loop */
+  for(;;)
+  {
+		HAL_UART_Receive(&huart5, buffer, sizeof(buffer),0xFF);
+		if(buffer[0] == '1')
+		{
+			HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);
+		}
+		else if(buffer[0] == '0')
+		{
+			HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);
+		}
+    osDelay(10);
+  }
+  /* USER CODE END LoRa */
 }
 
 /* Private application code --------------------------------------------------*/

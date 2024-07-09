@@ -106,17 +106,18 @@ int main(void)
   MX_TIM11_Init();
   MX_TIM12_Init();
   MX_TIM13_Init();
+  MX_UART5_Init();
   /* USER CODE BEGIN 2 */
 	
-  BMP280_Init();
+//  BMP280_Init();
 	HAL_TIM_PWM_Start(&htim11, TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim14, TIM_CHANNEL_1);
-	Motor_Init();
+//	Motor_Init();
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);
-	HAL_Delay(5000);
-	Motor_Land();
+//	HAL_Delay(5000);
+//	Motor_Land();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in cmsis_os2.c) */
@@ -131,16 +132,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//    MPU6050_DMP_GetData(&pitch,&roll,&yaw);
-//    BMP280_Measure_Cmd();
-//		BMP280_ReadData();
-//    temp = BMP280_Calculate_Temp();
-//		press = BMP280_Calculate_Press();
-//    printf("pitch = %.2f, roll = %.2f, yaw = %.2f\r\n", pitch,roll,yaw);
-//		printf("T: %.2f  P: %f \r\n", temp, press);
-//		OLED_ShowChar_EN(1,1,'A',1);
-//		HAL_Delay(100);
-//		OLED_Clear();
 
     /* USER CODE END WHILE */
 

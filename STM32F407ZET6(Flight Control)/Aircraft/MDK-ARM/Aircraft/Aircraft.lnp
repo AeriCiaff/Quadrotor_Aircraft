@@ -44,6 +44,7 @@
 "aircraft\mpu6050.o"
 "aircraft\bmp280.o"
 "aircraft\oled.o"
+"aircraft\lora.o"
 --library_type=microlib --strict --scatter "Aircraft\Aircraft.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
