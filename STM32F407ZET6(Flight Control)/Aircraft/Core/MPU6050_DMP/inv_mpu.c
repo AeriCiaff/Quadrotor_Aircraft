@@ -38,12 +38,12 @@
  */
 #if defined STM32_MPU6050
 #include "i2c.h"
-#include "cmsis_os.h"
+//#include "cmsis_os.h"
 #define i2c_write(dev_addr,reg_addr,data_size,p_data) \
         HAL_I2C_Mem_Write(&hi2c1,dev_addr,reg_addr,I2C_MEMADD_SIZE_8BIT,p_data,data_size,0xF)
 #define i2c_read(dev_addr,reg_addr,data_size,p_data) \
         HAL_I2C_Mem_Read(&hi2c1,dev_addr,reg_addr,I2C_MEMADD_SIZE_8BIT,p_data,data_size,0xF)
-#define delay_ms    osDelay
+#define delay_ms    HAL_Delay
 #define get_ms(p)      do{ *p = HAL_GetTick();}while(0)
 //static inline int reg_int_cb(struct int_param_s *int_param)
 //{

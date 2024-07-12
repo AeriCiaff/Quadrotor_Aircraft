@@ -34,7 +34,7 @@
  */
 #if defined STM32_MPU6050
 #include "i2c.h"
-#include "cmsis_os.h"
+//#include "cmsis_os.h"
 #define delay_ms    osDelay
 #define get_ms(p)      do{ *p = HAL_GetTick();}while(0)
 #define log_i(...)     do {} while (0)

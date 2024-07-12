@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "cmsis_os.h"
 #include "i2c.h"
 #include "tim.h"
 #include "usart.h"
@@ -33,12 +32,22 @@
 #include "inv_mpu_dmp_motion_driver.h"
 #include "bmp280.h"
 #include "oled.h"
-
+#include "pid.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+struct BMP280Sensor{
+	float temp;
+	float press;
+	float high;
+}BMP280Sensor;
 
+struct Angle{
+	float pitch;
+	float roll;
+	float yaw;
+}Angle;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -54,12 +63,14 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+uint16_t Speed = 1100;
+uint8_t buffer[1];
 
+PID *pid;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -114,25 +125,30 @@ int main(void)
 	HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim13, TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim14, TIM_CHANNEL_1);
-//	Motor_Init();
+	PID_Init(pid);
+	Motor_Init();
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);
-//	HAL_Delay(5000);
-//	Motor_Land();
   /* USER CODE END 2 */
-
-  /* Call init function for freertos objects (in cmsis_os2.c) */
-  MX_FREERTOS_Init();
-
-  /* Start scheduler */
-  osKernelStart();
-
-  /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
+		HAL_UART_Receive(&huart5, buffer, sizeof(buffer),1000);
+		switch(buffer[0])
+		{
+			case 'q':Speed = Motor_Stop(Speed);buffer[0] = 0;break;
+			case 'w':Speed = Motor_Rise(Speed);buffer[0] = 0;break;
+			case 's':Speed = Motor_Down(Speed);buffer[0] = 0;break;
+			case 'a':Motor_Left_Y(Speed);buffer[0] = 0;break;
+			case 'd':Motor_Right_Y(Speed);buffer[0] = 0;break;
+			case 'z':Motor_Left_Z(Speed);buffer[0] = 0;break;
+			case 'x':Motor_Right_Z(Speed);buffer[0] = 0; break;
+//			case '1':HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_RESET);break;
+//			case '0':HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);break;
+			defult: Motor_Hanging(Speed);
+		}
+		HAL_Delay(10);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
